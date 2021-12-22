@@ -31,14 +31,44 @@ class TestDiGraph(TestCase):
     def test_all_in_edges_of_node(self):
         self.fail()
 
+    def test_all_out_edges_of_node(self):
+        graph = DiGraph()
+        graph.add_node(0, (1, 2, 3))
+        graph.add_node(1, (1, 2, 3))
+        graph.add_node(2, (1, 2, 3))
+        graph.add_edge(1, 2, 3)
+        graph.add_edge(0, 1, 4)
+        outedges = {2: 3, 1: 4}
+        self.assertEqual(graph.nodes[1].out_edges[2], outedges.get(2))
+
     def test_get_mc(self):
-        self.fail()
+        graph = DiGraph()
+        graph.add_node(0, (1, 2, 3))
+        graph.add_node(1, (1, 2, 3))
+        graph.add_node(2, (1, 2, 3))
+        graph.add_edge(1, 2, 3)
+        graph.add_edge(0, 1, 4)
+        graph.add_edge(1, 0, 4)
+        self.assertEqual(graph.mc, 6)
 
     def test_add_edge(self):
-        self.fail()
+        graph = DiGraph()
+        graph.add_node(0, (1, 2, 3))
+        graph.add_node(1, (1, 2, 3))
+        graph.add_node(2, (1, 2, 3))
+        graph.add_edge(1, 2, 3)
+        graph.add_edge(0, 1, 4)
+        graph.add_edge(1, 0, 4)
+        self.assertEqual(graph.edges_size, 3)
+        self.assertEqual(graph.nodes[1].out_edges[2], 3)
 
     def test_add_node(self):
-        self.fail()
+        graph = DiGraph()
+        graph.add_node(0, (1, 2, 3))
+        graph.add_node(1, (1, 2, 3))
+        graph.add_node(2, (1, 2, 3))
+        self.assertEqual(graph.nodes_size, 3)
+        self.assertEqual(graph.nodes[2].location, Node(2, (1, 2, 3)).location)
 
     def test_remove_node(self):
         graph = DiGraph()
