@@ -20,16 +20,20 @@ class GraphAlgo(GraphAlgoInterface):
         return self.graph
 
     def load_from_json(self, file_name: str) -> bool:
-        return
+        with open(file_name) as f:
+            data = json.load(f)
 
-        def save_to_json(self, file_name: str) -> bool:
-        
+        for node in data['Nodes']:
+            self.graph.add_node(node['id'], node['pos'])
+        for edge in data['Edges']:
+            self.graph.add_edge(edge['src'], edge['dest'], edge['w'])
+        return True
+
+    def save_to_json(self, file_name: str) -> bool:
         try:
-            with open(file_name , 'w') as file:
-                g = []
-                dict1 = {}
+            with open(file_name, 'w') as file:
                 g = self.dict_graph()
-                json.dump(g,file,indent=4)
+                json.dump(g, file, indent=4)
         except IOError as e:
             return False
         return True
@@ -37,7 +41,7 @@ class GraphAlgo(GraphAlgoInterface):
     def dict_of_node(self):
 
         Nodes = []
-        for k,v in self.graph.get_all_v().items():
+        for k, v in self.graph.get_all_v().items():
             print(v.location)
             node = {}
             temp_location = str((v.location))[1:-1]
@@ -49,7 +53,7 @@ class GraphAlgo(GraphAlgoInterface):
     def dict_of_edge(self):
         Edges = []
         for k1 in self.graph.nodes.keys():
-            for k2,v in self.graph.all_out_edges_of_node(k1).items():
+            for k2, v in self.graph.all_out_edges_of_node(k1).items():
                 edges = {}
                 edges["src"] = k1
                 edges["weight"] = v
@@ -222,3 +226,7 @@ class PrioritizedItem:
 
     def get_id(self):
         return self.node.id
+
+
+
+
