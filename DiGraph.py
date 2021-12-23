@@ -4,7 +4,7 @@ from Node import Node
 
 class DiGraph(GraphInterface):
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.nodes = {}
         self.nodes_size = 0
         self.edges_size = 0
@@ -24,10 +24,10 @@ class DiGraph(GraphInterface):
         return self.nodes
 
     def all_in_edges_of_node(self, id1: int) -> dict:
-        return self.nodes.get(id1).in_edges()
+        return self.nodes.get(id1).in_edges
 
     def all_out_edges_of_node(self, id1: int) -> dict:
-        return self.nodes[id1].out_edges()
+        return self.nodes[id1].out_edges
 
     def get_mc(self) -> int:
         # if self.mc < 0:
@@ -35,6 +35,7 @@ class DiGraph(GraphInterface):
         return self.mc
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
+        # if id1 not in self.nodes.keys() or id2 not in self.nodes.keys():
         if self.nodes.get(id1) is None or self.nodes.get(id2) is None:
             return False
         if id1 == id2:
@@ -54,7 +55,7 @@ class DiGraph(GraphInterface):
         return True
 
     def remove_node(self, node_id: int) -> bool:
-        if self.nodes.get(node_id) is None:
+        if node_id not in self.nodes:
             return False
 
         n = self.nodes[node_id]
@@ -76,7 +77,11 @@ class DiGraph(GraphInterface):
         return True
 
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
-        if self.nodes[node_id1] is None or self.nodes[node_id2] is None:
+
+        if node_id1 not in self.nodes or node_id2 not in self.nodes:
+            return False
+
+        if self.nodes.get(node_id1).out_edges[node_id2] is None or self.nodes.get(node_id2).in_edges[node_id1] is None:
             return False
 
         del self.nodes.get(node_id1).out_edges[node_id2]

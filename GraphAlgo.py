@@ -1,19 +1,24 @@
 import heapq
 import json
+import random
 import sys
 from typing import List
 
-from src.GraphAlgoInterface import GraphAlgoInterface
+import matplotlib
+matplotlib.matplotlib_fname()
+from GraphAlgoInterface import GraphAlgoInterface
 from Node import Node
 from DiGraph import DiGraph
 from src.GraphInterface import GraphInterface
 from queue import PriorityQueue
 from dataclasses import dataclass, field
-
+from matplotlib import pyplot as plt
 
 class GraphAlgo(GraphAlgoInterface):
 
-    def __init__(self, graph: DiGraph):
+    def __init__(self, graph: DiGraph = None):
+        if graph is None:
+            graph = DiGraph()
         self.graph = graph
 
     def get_graph(self) -> GraphInterface:
@@ -24,16 +29,28 @@ class GraphAlgo(GraphAlgoInterface):
             data = json.load(f)
 
         for node in data['Nodes']:
-            self.graph.add_node(node['id'], node['pos'])
+            if len(node) == 1:
+                loc = (random.uniform(0,100),random.uniform(0,100),0)
+                node['pos'] = loc
+                self.graph.add_node(node['id'],node['pos'])
+            else:
+                location = tuple(float(s) for s in node['pos'].strip("()").split(","))
+                self.graph.add_node(node['id'], location)
+
         for edge in data['Edges']:
-            self.graph.add_edge(edge['src'], edge['dest'], edge['w'])
+            self.graph.add_edge(edge['src'], edge['dest'] ,edge['w'])
         return True
 
     def save_to_json(self, file_name: str) -> bool:
+
         try:
-            with open(file_name, 'w') as file:
-                g = self.dict_graph()
-                json.dump(g, file, indent=4)
+            with open(file_name , 'w') as file:
+                g = []
+                dict1 = {}
+                dict1["Edges"] = self.dict_of_edge()
+                dict1["Nodes"] = self.dict_of_node()
+                g = dict1
+                json.dump(g,file, ensure_ascii=False,indent=4)
         except IOError as e:
             return False
         return True
@@ -41,8 +58,7 @@ class GraphAlgo(GraphAlgoInterface):
     def dict_of_node(self):
 
         Nodes = []
-        for k, v in self.graph.get_all_v().items():
-            print(v.location)
+        for k,v in self.graph.get_all_v().items():
             node = {}
             temp_location = str((v.location))[1:-1]
             node["pos"] = str((temp_location).replace(' ', ''))
@@ -53,23 +69,19 @@ class GraphAlgo(GraphAlgoInterface):
     def dict_of_edge(self):
         Edges = []
         for k1 in self.graph.nodes.keys():
-            for k2, v in self.graph.all_out_edges_of_node(k1).items():
+            for k2,v in self.graph.all_out_edges_of_node(k1).items():
                 edges = {}
                 edges["src"] = k1
-                edges["weight"] = v
+                edges["w"] = v
                 edges["dest"] = k2
                 Edges.append(edges)
         return Edges
 
-    def dict_graph(self):
-        my_dict = {}
-        my_dict["Edges"] = self.dict_of_edge()
-        my_dict["Nodes"] = self.dict_of_node()
-        return my_dict
-
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         path_list = self.path(id1, id2)
         dist = self.graph.nodes[id2].weight
+        if dist == sys.maxsize:
+            return float('inf'), path_list
         return dist, path_list
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
@@ -79,6 +91,7 @@ class GraphAlgo(GraphAlgoInterface):
         cities_temp_list = []
         min_temp = 0
         for i in range(len(node_lst)):
+            break_loop = False
             first_time = False
             cities_temp_list.clear()
             cities_temp = node_lst.copy()
@@ -96,6 +109,7 @@ class GraphAlgo(GraphAlgoInterface):
                         curr_node_index = cities_temp[j]
                         location = j
                 if min_value == sys.maxsize:
+                    break_loop = True
                     break
                 min_temp += min_value
                 current_path = self.shortest_path_tsp(key, curr_node_index)
@@ -103,7 +117,7 @@ class GraphAlgo(GraphAlgoInterface):
                     current_path.pop(0)
                 first_time = True
                 cities_temp_list.extend(current_path)
-            if min_list > min_temp:
+            if min_list > min_temp and not break_loop:
                 cities_list.clear()
                 cities_list = cities_temp_list.copy()
                 min_list = min_temp
@@ -128,6 +142,8 @@ class GraphAlgo(GraphAlgoInterface):
             node = self.graph.nodes[i]
             self.dikjstra(node)
             temp = self.get_max()
+            if temp == sys.maxsize:
+                return -1, float('inf')
             if temp < max_value:
                 max_value = temp
                 key = node.id
@@ -143,6 +159,38 @@ class GraphAlgo(GraphAlgoInterface):
         return max_value
 
     def plot_graph(self) -> None:
+
+        # dev_x = self.graph.nodes[1].x
+        # dev_y = self.graph.nodes[1].y
+        for n in self.graph.nodes.values():
+            if n.location is None:
+                x_src = random.uniform(0,100)
+                y_src = random.uniform(0,100)
+                n.set_location(x_src,y_src,0)
+                plt.plot(x_src, y_src, markersize=20, marker='.', color='blue')
+                plt.text(x_src, y_src, str(n.id), color='black', fontsize=10)
+                plt.xlabel("x")
+            else:
+                x_src = n.location[0]
+                y_src = n.location[1]
+                plt.plot(x_src,y_src, color='blue', marker='.', markersize=20)
+                plt.text(x_src, y_src, str(n.id), color = 'black', fontsize=10)
+                plt.xlabel("x")
+            for k,w in self.graph.all_out_edges_of_node(n.id).items():
+                node_dest = self.graph.nodes[k]
+                if node_dest.location is None:
+                    x_dest = random.uniform(0,100)
+                    y_dest = random.uniform(0,100)
+                    z_dest = random.uniform(0,100)
+                    node_dest.location = (x_dest,y_dest, z_dest)
+                plt.annotate("", xy=(n.location[0],n.location[1]),xytext=(node_dest.location[0],node_dest.location[1]), arrowprops = dict(arrowstyle= "<-"))
+                # plt.text
+                plt.ylabel("y")
+                plt.title("my graph")
+                # plt.plot(k, w)
+        plt.show()
+
+
         return
 
     def dikjstra(self, src: Node):
@@ -194,6 +242,8 @@ class GraphAlgo(GraphAlgoInterface):
         while parent is not src:
             path_list.append(self.graph.nodes[parent].id)
             parent = self.graph.nodes[dest].tag
+            if parent == -1:
+                return []
             dest = self.graph.nodes[parent].id
 
         path_list.append(self.graph.nodes[src].id)
@@ -226,7 +276,3 @@ class PrioritizedItem:
 
     def get_id(self):
         return self.node.id
-
-
-
-
