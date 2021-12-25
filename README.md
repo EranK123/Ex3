@@ -38,3 +38,15 @@ The algorithm checks if the node_lst list is contained in the graph. It calculat
 
 **Running the program** - 
 
+
+
+**Some drawing examples using the matplotlib library:**
+
+The check0 graph:
+<img width="639" alt="Screen Shot 2021-12-25 at 10 45 02" src="https://user-images.githubusercontent.com/93202645/147381299-6bc861ad-0765-4b35-ab17-440428b9c965.png">
+
+The A5 graph:
+
+
+<img width="625" alt="Screen Shot 2021-12-25 at 10 45 25" src="https://user-images.githubusercontent.com/93202645/147381318-ca9795d7-c606-4a42-a459-b213d77d2aaa.png">
+
