@@ -45,13 +45,14 @@ The algorithm checks if the node_lst list is contained in the graph. It calculat
 The check0 graph:
 
 
-<img width="639" alt="Screen Shot 2021-12-25 at 10 45 02" src="https://user-images.githubusercontent.com/93202645/147381299-6bc861ad-0765-4b35-ab17-440428b9c965.png">
+<img width="589" alt="Screen Shot 2021-12-25 at 10 50 22" src="https://user-images.githubusercontent.com/93202645/147381395-1c61feac-2b2a-4fe2-9ebc-e0a082560cf2.png">
+
+
 
 The A5 graph:
 
 
-<img width="625" alt="Screen Shot 2021-12-25 at 10 45 25" src="https://user-images.githubusercontent.com/93202645/147381318-ca9795d7-c606-4a42-a459-b213d77d2aaa.png">
-
+<img width="611" alt="Screen Shot 2021-12-25 at 10 50 43" src="https://user-images.githubusercontent.com/93202645/147381400-a53670ab-1956-44dc-8eee-d82b964d1c1e.png">
 
 A UML class diagram:
 
