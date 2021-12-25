@@ -25,10 +25,15 @@ position and add the weight. Same with in_edges dictionary just the opposite ids
 *save_to_json* - Given a file name, this function will save the graph to a the file.
 
 *shortest_path* - This function will calculate the shortest path from a given node’s source id to a given destination node’s id. It will return the weight of the path and the actual path. The function uses the dikjstra algorithm. This algorithm finds the shortest path between node a and node b. It picks the source node, calculates the distance through it to each unvisited neighbor, and updates the neighbor's distance if smaller. Mark visited when done with all the neighbors. This algorithm will help us calculate the weight. To find the path we will use a help function called path. The function returns a list of Nodes representing the path. The list is ordered. This method uses the shortestPathDist function. In short, we save the parent of each node from the dikjstra algorithm in a tag variable which is defined in the Node class.
+
 *TSP* - given a list of node’s ids called node_lst, a sub list of nodes in the graph, the method computes a list of consecutive nodes which go over all the nodes in cities. The sum of the weights of all the consecutive (pairs) of nodes is the "cost" of the solution.
 The algorithm checks if the node_lst list is contained in the graph. It calculates the path using dijkstra from nodes in the list to another one. After it finds  the shortest path’s weight it  removes it from the list and calculates again from the end of the path and adds the new path(weight) to the list. It saves the weight. doing this for all the nodes in the cities list if found a better path(lower weight) it changes the list.
+
 *centerPoint* - Returns the Node center of the graph. The center of a graph is the set of all vertices of minimum eccentricity, that is, the set of all vertices u where the greatest distance (weight) d(u,v) to other vertices v is minimal. Thus vertices in the center minimize the maximal distance from other points in the graph. We will use the dijkstra method of each node to compute the distances to all nodes in the graph.
+
 *plot_graph* - this function plots the graph, i.e, it will draw the graph in a 2d space. It should show the desired graph the user wishes to draw. The graph will consists of all the nodes and the location of each node, the edges between them and the direction of each edge. It uses the matplotlib library.
+
 **Tests** - we also included tests to the main classes, DiGraph and GraphAlgo. In the tests, using unittest, we have tested each function in each class to check if our implementation is correct or not. After finishing each method we checked it using unittest to find out if the method has flaws or not. This tool was extremely helpful in programming.
+
 **Running the program** - 
 
