@@ -52,3 +52,12 @@ The A5 graph:
 
 <img width="625" alt="Screen Shot 2021-12-25 at 10 45 25" src="https://user-images.githubusercontent.com/93202645/147381318-ca9795d7-c606-4a42-a459-b213d77d2aaa.png">
 
+
+A UML class diagram:
+
+![GraphPythonUml](https://user-images.githubusercontent.com/93202645/147381341-4241f84c-e7b3-42c1-a452-8c41f5d8b4ea.png)
+
+
+
+
+
