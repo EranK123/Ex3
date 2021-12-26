@@ -1,22 +1,12 @@
 class Location:
 
-    def __init__(self,x,y,z):
-        # self.x = x
-        # self.y = y
-        # self.z = z
-        self.location = (x,y,z)
-
-
-
-
-    # def __str__(self):
-    #     dict = {"pos": self.location.x + "," + self.location.y + "," + self.location.z,}
-    #     return dict
+    def __init__(self, x, y, z):
+        self.location = (x, y, z)
 
 
 class Node:
 
-    def __init__(self, id: int,location):
+    def __init__(self, id: int, location):
         self.id = id
         self.weight = 0
         self.tag = 0
@@ -25,15 +15,24 @@ class Node:
         self.out_edges = {}  # {node's id : weight}
 
     def setWeight(self, weight):
+        """
+        set the weight of the node
+        :param weight:
+        """
         self.weight = weight
 
     def setTag(self, tag):
+        """
+        set the node tag
+        :param tag:
+        """
         self.tag = tag
 
-    def set_location(self,x,y,z):
-        self.location = (x,y,z)
-
-    # def get_location(self):
-    #     if self.location is None:
-    #         self.location = (random(0,100), random(0,100), random(0,100))
-    #     # self.location = (x,y,z)
+    def set_location(self, x, y, z):
+        """
+        set the node location
+        :param x:
+        :param y:
+        :param z:
+        """
+        self.location = (x, y, z)
