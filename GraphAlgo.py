@@ -32,7 +32,7 @@ class GraphAlgo(GraphAlgoInterface):
         """
         return self.graph
 
-       def load_from_json(self, file_name: str) -> bool:
+    def load_from_json(self, file_name: str) -> bool:
 
         """
         This function loads a graph from a json file.
@@ -45,16 +45,16 @@ class GraphAlgo(GraphAlgoInterface):
                 data = json.load(f)
             # iterate over the Nodes list
             for node in data['Nodes']:
-                if len(node) == 1:# if there is no position to the node we randomize it
-                    loc = (random.uniform(0,100),random.uniform(0,100),0)
+                if len(node) == 1:  # if there is no position to the node we randomize it
+                    loc = (random.uniform(0, 100), random.uniform(0, 100), 0)
                     node['pos'] = loc
-                    g.add_node(node['id'],node['pos'])# add the node to the graph
+                    g.add_node(node['id'], node['pos'])  # add the node to the graph
                 else:
-                    location = tuple(float(s) for s in node['pos'].strip("()").split(","))# get the location
-                    g.add_node(node['id'], location) # add the node to the graph
+                    location = tuple(float(s) for s in node['pos'].strip("()").split(","))  # get the location
+                    g.add_node(node['id'], location)  # add the node to the graph
             # iterate over the Edges list
             for edge in data['Edges']:
-                g.add_edge(edge['src'], edge['dest'] ,edge['w']) # add the edge to the graph
+                g.add_edge(edge['src'], edge['dest'], edge['w'])  # add the edge to the graph
             self.graph = g
             return True
         except IOError as e:
