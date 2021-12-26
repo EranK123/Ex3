@@ -13,6 +13,8 @@ class Node:
         self.location = location
         self.in_edges = {}  # {node's id : weight}
         self.out_edges = {}  # {node's id : weight}
+        self.out_edges_size = 0
+        self.in_edges_size = 0
 
     def setWeight(self, weight):
         """
@@ -36,3 +38,6 @@ class Node:
         :param z:
         """
         self.location = (x, y, z)
+
+    def __repr__(self):
+        return f"{self.id}: |edges out| {self.out_edges_size} |edges in| {self.in_edges_size}"
