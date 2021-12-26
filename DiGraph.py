@@ -72,6 +72,8 @@ class DiGraph(GraphInterface):
         self.nodes.get(id2).in_edges[id1] = weight  # add to node's id2 in edges
         self.mc += 1
         self.edges_size += 1
+        self.nodes.get(id1).out_edges_size += 1
+        self.nodes.get(id2).in_edges_size += 1
         return True
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
@@ -135,4 +137,8 @@ class DiGraph(GraphInterface):
         # remove it
         self.mc += 1
         self.edges_size -= 1
+        self.nodes.get(node_id1).out_edges_size -= 1 
+        self.nodes.get(node_id2).in_edges_size -= 1 
         return True
+    def __repr__(self):
+        return f"Graph: |V| = {self.nodes_size}, |E| = {self.edges_size}"
