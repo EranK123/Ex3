@@ -200,14 +200,14 @@ class GraphAlgo(GraphAlgoInterface):
         """
         Sets all the tags of the nodes to -1. The tags represent the parent of the node
         """
-        for i in range(self.graph.nodes_size):
+        for i in self.graph.nodes:
             self.graph.nodes[i].setTag(-1)
 
     def set_weight(self):
         """
         Sets all the weights to max value
         """
-        for i in range(self.graph.nodes_size):
+        for i in self.graph.nodes:
             self.graph.nodes[i].setWeight(sys.maxsize)
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
