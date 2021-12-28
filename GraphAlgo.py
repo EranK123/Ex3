@@ -11,7 +11,7 @@ matplotlib.matplotlib_fname()
 from GraphAlgoInterface import GraphAlgoInterface
 from Node import Node
 from DiGraph import DiGraph
-from GraphInterface import GraphInterface
+from src.GraphInterface import GraphInterface
 from queue import PriorityQueue
 
 

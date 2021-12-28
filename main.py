@@ -1,6 +1,5 @@
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
-import sys
 
 
 def check():
@@ -22,7 +21,6 @@ def check():
     check0()
     check1()
     check2()
-    check3()
 
 
 def check0():
@@ -69,7 +67,7 @@ def check2():
       :return:
       """
     g_algo = GraphAlgo()
-    file = 'A5.json'
+    file = '../data/A5.json'
     g_algo.load_from_json(file)
     g_algo.get_graph().remove_edge(13, 14)
     g_algo.save_to_json(file + "_edited")
@@ -106,15 +104,5 @@ def check3():
     g_algo.plot_graph()
 
 
-def run():
-    filename = "../data/" + sys.argv[1]
-    graph = GraphAlgo()
-    graph.load_from_json(filename)
-    graph.plot_graph()
-
-
 if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        check()
-    else:
-        run()
+    check()
