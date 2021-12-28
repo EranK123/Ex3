@@ -1,8 +1,7 @@
 from unittest import TestCase
 
-from src.DiGraph import DiGraph
-from src.GraphAlgo import GraphAlgo
-from Node import Node
+from DiGraph import DiGraph
+from GraphAlgo import GraphAlgo
 
 
 class TestGraphAlgo(TestCase):
@@ -32,7 +31,7 @@ class TestGraphAlgo(TestCase):
         graph = DiGraph()
         graphAlgo = GraphAlgo(graph)
         graph2 = DiGraph()
-        graphAlgo2 = GraphAlgo(graph2)
+        GraphAlgo(graph2)
         graphAlgo.graph.add_node(0, (1, 2, 3))
         graphAlgo.graph.add_node(1, (1, 2, 3))
         graphAlgo.graph.add_node(2, (1, 2, 3))
@@ -148,5 +147,5 @@ class TestGraphAlgo(TestCase):
     def test_plot_graph(self):
         graph = DiGraph()
         graphAlgo = GraphAlgo(graph)
-        graphAlgo.load_from_json('../data/A0.json')
+        graphAlgo.load_from_json("A0.json")
         graphAlgo.plot_graph()
