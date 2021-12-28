@@ -37,7 +37,7 @@ The algorithm checks if the node_lst list is contained in the graph. It calculat
 **Tests** - we also included tests to the main classes, DiGraph and GraphAlgo. In the tests, using unittest, we have tested each function in each class to check if our implementation is correct or not. After finishing each method we checked it using unittest to find out if the method has flaws or not. This tool was extremely helpful in programming.
 
 **Running the program** - To run the program simply download the project from this github page. After you completed the download add it as a new project in your prefered python IDE. Then access the terminal and run this command to run the all the checks in main: *python main.py*. To run a specific graph run this command:
-*python main.py <json file name>*.
+*python main.py json file name*.
 
 
 
