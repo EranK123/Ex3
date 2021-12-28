@@ -36,8 +36,8 @@ class TestDiGraph(TestCase):
         self.assertEqual(nodes.get(1).location, graph.get_all_v().get(1).location)
         self.assertEqual(graph.nodes_size, 2)
 
-    def test_all_in_edges_of_node(self):
-        self.fail()
+    # def test_all_in_edges_of_node(self):
+    #     self.fail()
 
     def test_all_out_edges_of_node(self):
         graph = DiGraph()

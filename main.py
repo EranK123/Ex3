@@ -1,5 +1,6 @@
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
+import sys
 
 
 def check():
@@ -21,6 +22,7 @@ def check():
     check0()
     check1()
     check2()
+    check3()
 
 
 def check0():
@@ -104,5 +106,15 @@ def check3():
     g_algo.plot_graph()
 
 
+def run():
+    filename = "../data/" + sys.argv[1]
+    graph = GraphAlgo()
+    graph.load_from_json(filename)
+    graph.plot_graph()
+
+
 if __name__ == '__main__':
-    check()
+    if len(sys.argv) == 1:
+        check()
+    else:
+        run()
